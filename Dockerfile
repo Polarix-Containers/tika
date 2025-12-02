@@ -1,7 +1,7 @@
-ARG VERSION = 3.2.3
-ARG JRE = 21
-ARG UID = 200020
-ARG GID = 200020
+ARG VERSION=3.2.3
+ARG JRE=21
+ARG UID=200020
+ARG GID=200020
 
 FROM alpine:latest AS base
 
@@ -11,7 +11,7 @@ ARG UID
 ARG GID
 ARG CHECK_SIG=true
 
-ENV TIKA_VERSION = ${VERSION}
+ENV TIKA_VERSION=${VERSION}
 
 ENV NEAREST_TIKA_SERVER_URL="https://dlcdn.apache.org/tika/${TIKA_VERSION}/tika-server-standard-${TIKA_VERSION}.jar" \
     ARCHIVE_TIKA_SERVER_URL="https://archive.apache.org/dist/tika/${TIKA_VERSION}/tika-server-standard-${TIKA_VERSION}.jar" \
