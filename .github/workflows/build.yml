@@ -57,6 +57,7 @@ jobs:
           tags: |
             ${{ env.TAG }}
             ${{ env.VERSION }}
+            3
 
       - name: Build and push Docker image
         id: build-and-push
