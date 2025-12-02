@@ -14,7 +14,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: polarix-containers/acme.sh
+  IMAGE_NAME: polarix-containers/tika
   TAG: latest
 
 jobs:
