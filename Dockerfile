@@ -18,9 +18,6 @@ ENV TIKA_SERVER_ARCHIVE="tika-server-standard-${TIKA_VERSION}.zip" \
     DEFAULT_TIKA_SERVER_ASC_URL="https://downloads.apache.org/tika/${TIKA_VERSION}/tika-server-standard-${TIKA_VERSION}.jar.asc" \
     ARCHIVE_TIKA_SERVER_ASC_URL="https://archive.apache.org/dist/tika/${TIKA_VERSION}/tika-server-standard-${TIKA_VERSION}.jar.asc"
 
-COPY --from=ghcr.io/polarix-containers/hardened_malloc:latest /install /usr/local/lib/
-ENV LD_PRELOAD="/usr/local/lib/libhardened_malloc.so"
-
 RUN apk -U upgrade \
     && apk add gnupg openjdk${JRE}-jre wget \
     && rm -rf /var/cache/apk/* \
@@ -45,11 +42,8 @@ ARG GID
 
 ENV TIKA_VERSION=${VERSION}
 
-COPY --from=ghcr.io/polarix-containers/hardened_malloc:latest /install /usr/local/lib/
-ENV LD_PRELOAD="/usr/local/lib/libhardened_malloc.so"
-
 RUN apk -U upgrade \
-    && apk add ca-certificates openjdk${JRE}-jre \
+    && apk add ca-certificates libstdc++ openjdk${JRE}-jre \
     && rm -rf /var/cache/apk/*
 
 RUN --network=none \
@@ -58,6 +52,9 @@ RUN --network=none \
 
 COPY --from=fetch_tika /opt/tika-server /opt/tika-server
 WORKDIR /opt/tika-server
+
+COPY --from=ghcr.io/polarix-containers/hardened_malloc:latest /install /usr/local/lib/
+ENV LD_PRELOAD="/usr/local/lib/libhardened_malloc.so"
 
 USER tika
 EXPOSE 9998
