@@ -37,6 +37,7 @@ RUN apk -U upgrade \
 FROM alpine:latest
 
 ARG VERSION
+ARG JRE
 ARG UID
 ARG GID
 
